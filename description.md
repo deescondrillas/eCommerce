@@ -6,7 +6,7 @@ Este proyecto consiste en la creación de un sistema de pagos que garantice la s
 El problema específico que se busca atender con esta solución es hacer los pagos digitales más seguros para motivar a los compradores análogos a entrar en el negocio digital y comprar los productos de diversos negocios.
 
 Descripción:
-El programa en su totalidad fue diseñado con el lenguaje de programación C++. Específicamente, se crearon distintas clases para abstraer la situación, tales como ...
+El programa en su totalidad fue diseñado con el lenguaje de programación C++. Específicamente, se crearon distintas clases para abstraer la situación, tales como cliente, tarjeta y token. Cliente y token son clases compuestas por tarjeta, pues su definición incluye atributos que pertenecen a esta clase. Por otro lado, cliente y token son clases agregadas, pues una puede tener acceso a la otra mas no tienen elementos pertenecientes a la otra clase.
 
 Valores de Entrada:
   Al registrarse:
