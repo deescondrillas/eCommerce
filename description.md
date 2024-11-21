@@ -22,7 +22,7 @@ Valores de Entrada:
   - Monto máximo a cobrar (opcional)
 
 Valores de Retorno:
-  Cuando el usario quiere revisar su estado de cuenta:
+  Cuando el usuario quiere revisar su estado de cuenta:
   - Nombre de usuario
   - Cantidad de dinero
   - Historial de compras
