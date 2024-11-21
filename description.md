@@ -1,7 +1,7 @@
 # eCommerce
 Proyecto Final – Pensamiento Computacional Orientado a Objetos
 
-Este proyecto consiste en la creación de un sistema de pagos que garantice la seguridad del cliente. Para ello, se va a diseñar el backend de una aplicación intermediaria que mantenga en privado los datos de pago del cliente. A la hora de pagar, el sistema generará una cuenta digital temporal para hacer el pago digital. Además, podrá recibir opcionalmente una cantidad máxima de dinero a retirar para evitar que se hagan cargos adicionales a la cuenta bancaria del cliente.
+Este proyecto consiste en la creación de un sistema de pagos que garantice la seguridad del cliente. Para ello, se va a diseñar el backend de una aplicación intermediaria que mantenga en privado los datos de pago del cliente. A la hora de pagar, el sistema generará una cuenta digital temporal para hacer el pago en línea. Además, podrá recibir opcionalmente una cantidad máxima de dinero a retirar para evitar que se hagan cargos adicionales a la cuenta bancaria del cliente.
 
 El problema específico que se busca atender con esta solución es hacer los pagos digitales más seguros para motivar a los compradores análogos a entrar en el negocio digital y comprar los productos de diversos negocios.
 
@@ -25,6 +25,7 @@ Valores de Retorno:
   Cuando el usario quiere revisar su estado de cuenta:
   - Nombre de usuario
   - Cantidad de dinero
+  - Historial de compras
   Cuando se quiere realizar un pago
   - Número de cuenta temporal
   - Fecha de vencimiento temporal
