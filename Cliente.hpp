@@ -1,10 +1,11 @@
 //descripción: definición de la clase
 //fecha: nov, 20 - 2024
 //autores: Víctor Ayrton Urrutia & Franco De Escondrillas
+
 #pragma once
+#include "Tarjeta.cpp"
+
 using namespace std;
-#include <string>
-#include "Tarjeta.hpp"
 
 class Cliente {
     public:
@@ -20,7 +21,7 @@ class Cliente {
         void setUsuario(string);
         void setClave(string);
         void setCapital(double);
-        Tarjeta setTarjeta();
+        void setTarjeta(Tarjeta);
 
         void printCuenta();
         void updateHistorial();
