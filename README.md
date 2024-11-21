@@ -29,6 +29,7 @@ Valores de Retorno:
   - Número de cuenta temporal
   - Token aleatorio temporal
   - Mensaje de error (en caso de que no se cumplan las condiciones)
+
   \* en caso de que se haga un pago durante el lapso de tiempo que dura el token, entonces el sistema retirará la cantidad de dinero de la cuenta del cliente y la transferirá a la cuenta temporal para que se haga el cargo. Si se intentan realizar varios cobros, la cantidad de dinero a retirar supera el límite máximo establecido o la cuenta del cliente no tiene suficiente dinero, entonces se regresará un mensaje de error.
 
 Limitaciones:
