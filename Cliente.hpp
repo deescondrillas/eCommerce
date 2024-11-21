@@ -9,20 +9,27 @@ using namespace std;
 class Cliente {
     public:
         Cliente();
+        Cliente(string, string, double, Tarjeta);
         ~Cliente();
-        string getName();
-        string getEmail();
-        string getPassword();
-        string getAddress();
-        void setName(string name);
-        void setEmail(string email);
-        void setPassword(string password);
-        void setAddress(string address);
-        void getData();
+
+        string getUsuario();
+        string getClave();
+        double getCapital();
+        Tarjeta getTarjeta();
+
+        void setUsuario(string);
+        void setClave(string);
+        void setCapital(double);
+        Tarjeta setTarjeta();
+
+        void printCuenta();
+        void updateHistorial();
+        void printHistorial();
+
     private:
-        string name;
-        string password;
-        string address;
-        string email;
+        string usuario;
+        string clave;
+        double capital;
+        double historial[10];
         Tarjeta tarjeta;
 };
