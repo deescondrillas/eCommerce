@@ -10,8 +10,7 @@ class Cliente {
     public:
         Cliente();
         ~Cliente();
-        string getCliente();
-        string getNombre();
+        string getName();
         string getEmail();
         string getPassword();
         string getAddress();
