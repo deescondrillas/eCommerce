@@ -8,32 +8,31 @@ using namespace std;
 #include "Tarjeta.hpp"
 
 
-string Cliente::getName() {
-    return name;
+string Cliente::getUsuario() {
+    return usuario;
 }
-string Cliente::getEmail() {
-    return email;
+string Cliente::getClave() {
+    return clave;
 }
-string Cliente::getPassword() {
-    //metodo para seguridad a la hora de obtener contraseña (autentificacion de 2 pasos, clave segura, etc)
-    return password;
+double Cliente::getCapital() {
+        return capital;
 }
-string Cliente::getAddress() {
-    return address;
+Tarjeta Cliente::getTarjeta() {
+    return tarjeta;
 }
-void Cliente::setName(string vName) {
-    name = vName;
+
+void Cliente::setUsuario(string vUsuario) {
+    usuario = vUsuario;
 }
-void Cliente::setEmail(string vEmail) {
-    email = vEmail;
+void Cliente::setClave(string vClave) {
+    clave = vClave;
 }
-void Cliente::setPassword(string vPassword) {
-    // si es primera vez, realizar la creación. Crear metodo para actualizar la conteraseña.
-    password = vPassword;
+void Cliente::setCapital(double vCapital) {
+    capital = vCapital;
 }
-void Cliente::setAddress(string vAddress) {
-    address = vAddress;
+void Cliente::setTarjeta(tarjet) {
+    tarjeta = tarjet;
 }
-void Cliente::getData() {
-    cout << "Nombre del Cliente: " << getName() << ". Email: " << getEmail() << ". Contraseña: " << getPassword() << ". Dirección: " << getAddress() << endl;
-}
+/*void Cliente::updateHistorial() {
+
+}*/
