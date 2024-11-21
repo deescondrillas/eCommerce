@@ -27,6 +27,7 @@ Valores de Retorno:
   - Cantidad de dinero
   Cuando se quiere realizar un pago
   - Número de cuenta temporal
+  - Fecha de vencimiento temporal
   - Token aleatorio temporal
   - Mensaje de error (en caso de que no se cumplan las condiciones)
 
