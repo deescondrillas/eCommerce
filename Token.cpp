@@ -7,7 +7,7 @@
 #include <ctime>
 
 //builders
-Token::Token(): limiteMax(0) {
+Token::Token(): limiteMax(0), pago(false) {
     //obteniendo el año y el mes
     time_t tiempo = time(nullptr);
     tm *const t = localtime(&tiempo);
@@ -39,7 +39,13 @@ string Token::getCad() {
 int Token::getLim() {
     return limiteMax;
 }
+bool Token::getPago() {
+    return pago;
+}
 //methods
+void Token::pagar() {
+    pago = true;
+}
 int Token::aleatorio(int digitos) {
     time_t stamp = pow(time(nullptr),2);
     int potencia = pow(10, digitos);

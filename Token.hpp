@@ -18,7 +18,9 @@ class Token {
         string getCod();
         string getCad();
         int getLim();
+        bool getPago();
         //methods
+        void pagar();
         string aTexto(int);
         int aleatorio(int);
 
@@ -27,4 +29,5 @@ class Token {
         string randCod;
         string cad;
         int limiteMax;
+        bool pago;
 };
