@@ -11,10 +11,13 @@ class Token {
         //builders
         Token();
         ~Token();
+        //setters
+        void setLim(int);
         //getters
         string getNum();
         string getCod();
         string getCad();
+        int getLim();
         //methods
         string aTexto(int);
         int aleatorio(int);
@@ -22,5 +25,6 @@ class Token {
     private:
         string randNum;
         string randCod;
-        string fecha;
+        string cad;
+        int limiteMax;
 };

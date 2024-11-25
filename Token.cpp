@@ -7,20 +7,24 @@
 #include <ctime>
 
 //builders
-Token::Token() {
+Token::Token(): limiteMax(0) {
     //obteniendo el año y el mes
     time_t tiempo = time(nullptr);
     tm *const t = localtime(&tiempo);
     int anio = t->tm_year - 100;
     int mes = t->tm_mon + 1;
     //asignando una caducidad de un año
-    fecha = aTexto(mes) + '/' + aTexto(anio + 1);
+    cad = aTexto(mes) + '/' + aTexto(anio + 1);
     //generando una tarjeta aleatoria
     randNum = aTexto(aleatorio(16));
     randCod = aTexto(aleatorio(3));
 }
 Token::~Token() {
 
+}
+//setters
+void Token::setLim(int limite) {
+    limiteMax = limite;
 }
 //getters
 string Token::getNum() {
@@ -30,11 +34,14 @@ string Token::getCod() {
     return randCod;
 }
 string Token::getCad() {
-    return fecha;
+    return cad;
+}
+int Token::getLim() {
+    return limiteMax;
 }
 //methods
 int Token::aleatorio(int digitos) {
-    time_t stamp = time(nullptr);
+    time_t stamp = pow(time(nullptr),2);
     int potencia = pow(10, digitos);
     return stamp % potencia;
 }
