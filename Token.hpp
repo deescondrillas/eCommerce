@@ -19,6 +19,7 @@ class Token {
         string getCad();
         int getLim();
         bool getPago();
+        int getTimestamp();
         //methods
         void pagar();
         string aTexto(int);
@@ -30,4 +31,5 @@ class Token {
         string cad;
         int limiteMax;
         bool pago;
+        int timestamp;
 };
