@@ -1,5 +1,5 @@
 //descripción: definición de la clase
-//fecha: nov, 20 - 2024
+//fecha: nov, 24 - 2024
 //autores: Víctor Ayrton Urrutia & Franco De Escondrillas
 
 #include <string>
@@ -8,19 +8,19 @@ using namespace std;
 
 class Token {
     public:
+        //builders
         Token();
         ~Token();
-
+        //getters
         string getNum();
         string getCod();
         string getCad();
-
+        //methods
         string aTexto(int);
-        string fecha(int, int);
+        int aleatorio(int);
 
     private:
-        int randNum;
-        int randCod;
-        int randMes;
-        int randYear;
+        string randNum;
+        string randCod;
+        string fecha;
 };
