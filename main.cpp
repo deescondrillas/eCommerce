@@ -8,7 +8,11 @@
 #include <stdlib.h>
 
     // using namespace std;
-
+    //
+//Variables globales
+Cliente Cliente[16];
+int contador = 0;
+//Definición de funciones para crear menús
 void clear();
 void label(string);
 void principal();
@@ -155,21 +159,37 @@ void vendedor() {
 
 void crearCuenta() {
     clear();
-    string _usuario, _clave, _capital;
+    string _usuario, _clave;
+    double _capital;
     string _num, _cod, _cad;
     label("Crear una cuenta");
 
-    cout << "A continuación, por favor ingrese la información solicitada o 'c' para cancelar." << endl;
-    cout << "   Nombre de usuario:  ";
+    cout << "A continuación por favor ingrese la información solicitada, o 'c' para cancelar." << endl;
+    cout << "   Nombre de usuario (sin espacios):   ";
     cin >> _usuario;
     if (_usuario == "c") {
         comprador();
     }
     else {
-        cout << "   Contraseña:         ";
+        cout << "   Contraseña:                         ";
         cin >> _clave;
-        cout << "   Dinero disponible:  ";
+        cout << "   Dinero disponible (numérico):       ";
         cin >> _capital;
+        cout << "\n   Número de tarjeta (16 dígitos):     ";
+        cin >> _num;
+        while (_num.length() != 16) {
+            cout << "\nTamaño incorrecto, intente de nuevo";
+            cout << "\n   Número de tarjeta (16 dígitos):     ";
+            cin >> _num;
+        }
+        cout << "Código (CVV, tres dígitos):            ";
+        cin >> _cod;
+        cout << "Fecha de caducidad 'xx/xx':            ";
+        cin >> _cad;
+
+        cout << "\nCuenta creada. Escriba algo para regresar al menú anterior." << endl;
+        cin >> _cod;
+        comprador();
     }
 }
 

@@ -1,5 +1,5 @@
 //descripción: atributos y métodos de la clase
-//fecha: nov, 20 - 2024
+//fecha: nov, 24 - 2024
 //autores: Víctor Ayrton Urrutia & Franco De Escondrillas
 
 #include "Cliente.hpp"
