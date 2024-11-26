@@ -2,32 +2,60 @@
 //fecha: nov, 24 - 2024
 //autores: Víctor Ayrton Urrutia & Franco De Escondrillas
 
+//inclusión de clases
 #include "Cliente.cpp"
-    // #include <string>
-    // #include <iostream>
+
+//librerías adicionales
 #include <stdlib.h>
 
-    // using namespace std;
-    //
 //Variables globales
-Cliente Cliente[16];
+Cliente Clientes[16];
 int contador = 0;
-//Definición de funciones para crear menús
+//Definición de funciones
+
+//clear limpia la terminal
 void clear();
+
+//label imprime títulos con un estilo predefinido
 void label(string);
+
+//principal genera el menú principal
 void principal();
+
+//comprador genera el menú para el cliente
 void comprador();
+
+//crearCuenta edita un objeto de Clientes[] para crear un usuario
 void crearCuenta();
+
+//realizarPago permite crear una tarjeta digital temporal (class Token)
 void realizarPago();
-void editarDatos();
+
+//editarDatos permite que el usuario cambie o muestre sus datos
+void editarDatos(int);
+
+//mostrarDatos muestra todos los datos del usuario
+void mostrarDatos(int);
+
+//cambiarDatos cambia los datos del usuario
+void cambiarDatos();
+
+//vendedor genera el menú para el vendedor
 void vendedor();
+
+//realizarCobro permite al vendedor cobrar
 void realizarCobro();
+
+//buscor recibe un nombre de usuario y busca el índice de un objeto en Clientes que coincida
+//de lo contrario un 404 not found
+int buscador(string);
 
 int main() {
     principal();
     return 0;
 }
 
+//estatus: - terminada
 void clear() {
     #ifdef _WIN32
         system("clc");
@@ -43,6 +71,7 @@ void clear() {
     #endif
 }
 
+//estatus: - terminada
 void label(string title) {
     int len = title.length();
     string bar = " --";
@@ -55,6 +84,7 @@ void label(string title) {
     cout << bar << '\n' << endl;
 }
 
+//estatus: - terminada
 void principal() {
     clear();
     string seleccion;
@@ -90,6 +120,7 @@ void principal() {
     }
 }
 
+//estatus: - terminada
 void comprador() {
     clear();
     string seleccion;
@@ -128,6 +159,7 @@ void comprador() {
     }
 }
 
+//estatus: - terminada
 void vendedor() {
     clear();
     string seleccion;
@@ -157,6 +189,7 @@ void vendedor() {
     }
 }
 
+//estatus: - terminado
 void crearCuenta() {
     clear();
     string _usuario, _clave;
@@ -171,10 +204,16 @@ void crearCuenta() {
         comprador();
     }
     else {
+        Clientes[contador].setUsuario(_usuario);
+
         cout << "   Contraseña:                         ";
         cin >> _clave;
+        Clientes[contador].setClave(_clave);
+
         cout << "   Dinero disponible (numérico):       ";
         cin >> _capital;
+        Clientes[contador].setCapital(_capital);
+
         cout << "\n   Número de tarjeta (16 dígitos):     ";
         cin >> _num;
         while (_num.length() != 16) {
@@ -182,17 +221,24 @@ void crearCuenta() {
             cout << "\n   Número de tarjeta (16 dígitos):     ";
             cin >> _num;
         }
+        Clientes[contador].getTarjeta().setNum(_num);
+
         cout << "Código (CVV, tres dígitos):            ";
         cin >> _cod;
+        Clientes[contador].getTarjeta().setCod(_cod);
+
         cout << "Fecha de caducidad 'xx/xx':            ";
         cin >> _cad;
+        Clientes[contador].getTarjeta().setCad(_cad);
 
         cout << "\nCuenta creada. Escriba algo para regresar al menú anterior." << endl;
         cin >> _cod;
+        contador++;
         comprador();
     }
 }
 
+//estatus: - pendiente
 void realizarPago(){
     clear();
     int maximo;
@@ -201,18 +247,91 @@ void realizarPago(){
     cout << "Próximamente" << endl;
 }
 
-void editarDatos() {
+//estatus: - terminada
+void editarDatos(int queCliente) {
     clear();
-    string seleccion;
+    int quien;
+    string seleccion, _usuario, _clave;
     label("Editar mis datos");
+    //Menú de la sección
+    cout << "¿Qué desea hacer?" << endl;
+    cout << "   1. Mostrar mis datos" << endl;
+    cout << "   2. Editar mis datos" << endl;
+    cout << "Introduzca una opción: ";
+    cin >> seleccion;
+    while (seleccion != "1" && seleccion != "2") {
+        cout << "\nIntroduzca una opción válida: ";
+        cin >> seleccion;
+    }
+    //Pedir usuario
+    cout << "\nNombre de usuario:   ";
+    cin >> _usuario;
+    //validar usuario
+    while (buscador(_usuario) == 404) {
+        cout << "Este nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
+        cout << "Nombre de usuario:   ";
+        cin >> _usuario;
+        if (_usuario == "c") {
+            comprador();
+        }
+    }
+    cout << "Contraseña:          ";
+    cin >> _clave;
+    while (_clave != Clientes[buscador(_usuario)].getClave()) {
+        cout << "Contraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
+        cout << "Contraseña:          ";
+        cin >> _usuario;
+        if (_usuario == "c") {
+            comprador();
+        }
+    }
 
-    cout << "Próximamente" << endl;
+    int option = stoi(seleccion);
+    switch (option) {
+        case 1:
+            mostrarDatos();
+            break;
+        case 2:
+            cambiarDatos();
+            break;
+        default:
+            cout << "Error";
+            break;
+    }
 }
 
+//estatus: - pendiente
+void mostrarDatos(int queCliente) {
+    clear();
+    string wait;
+    label("Editar mis datos");
+    //mostrar los datos
+    Clientes[queCliente].printDatos();
+    cout << "\nEscriba algo para regresar al menú principal" << endl;
+    cin >> wait;
+    principal();
+}
+
+//estatus: - pendiente
+void cambiarDatos() {
+
+}
+
+//estatus: - pendiente
 void realizarCobro() {
     clear();
     string _num, _cod, _cad;
     label("Realizar un cobro");
 
     cout << "Próximamente" << endl;
+}
+
+//estatus: - terminada
+int buscador(string _nombre) {
+    for (int i = 0; i < 16; i++) {
+        if (_nombre == Clientes[i].getUsuario()) {
+            return i;
+        }
+    }
+    return 404;
 }

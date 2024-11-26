@@ -23,7 +23,7 @@ class Cliente {
         double getCapital();
         Tarjeta getTarjeta();
         //methods
-        void printCuenta();
+        void printDatos();
         void updateHistorial();
         void printHistorial();
 

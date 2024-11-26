@@ -15,17 +15,18 @@ class Tarjeta {
         //setters
         void setNum(string);
         void setCod(string);
-        void setCad(int, int);
+        void setCad(string);
         //getters
         string getNum();
         string getCod();
         string getCad();
         //methods
         void imprime();
+        // void crearToken();
 
     private:
-        int randNum;
-        int randCod;
-        int randMes;
-        int randYear;
+        string num;
+        string cod;
+        string cad;
+        Token randTarj;
 };
