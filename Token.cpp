@@ -18,6 +18,7 @@ Token::Token(): limiteMax(0), pago(false) {
     //generando una tarjeta aleatoria
     randNum = aTexto(aleatorio(16));
     randCod = aTexto(aleatorio(3));
+    timestamp = tiempo;
 }
 Token::~Token() {
 
@@ -41,6 +42,9 @@ int Token::getLim() {
 }
 bool Token::getPago() {
     return pago;
+}
+int Token::getTimestamp() {
+    return timestamp;
 }
 //methods
 void Token::pagar() {
