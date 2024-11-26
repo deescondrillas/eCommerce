@@ -32,13 +32,13 @@ void crearCuenta();
 void realizarPago();
 
 //editarDatos permite que el usuario cambie o muestre sus datos
-void editarDatos(int);
+void editarDatos();
 
 //mostrarDatos muestra todos los datos del usuario
 void mostrarDatos(int);
 
 //cambiarDatos cambia los datos del usuario
-void cambiarDatos();
+void cambiarDatos(int);
 
 //vendedor genera el menú para el vendedor
 void vendedor();
@@ -197,21 +197,21 @@ void crearCuenta() {
     string _num, _cod, _cad;
     label("Crear una cuenta");
 
-    cout << "A continuación por favor ingrese la información solicitada, o 'c' para cancelar." << endl;
+    cout << "A continuación ingrese la información solicitada, o 'c' para cancelar." << endl;
     cout << "   Nombre de usuario (sin espacios):   ";
     cin >> _usuario;
     if (_usuario == "c") {
         comprador();
     }
     else {
-        Clientes[contador].setUsuario(_usuario);
 
         cout << "   Contraseña:                         ";
         cin >> _clave;
-        Clientes[contador].setClave(_clave);
 
         cout << "   Dinero disponible (numérico):       ";
         cin >> _capital;
+        Clientes[contador].setUsuario(_usuario);
+        Clientes[contador].setClave(_clave);
         Clientes[contador].setCapital(_capital);
 
         cout << "\n   Número de tarjeta (16 dígitos):     ";
@@ -221,15 +221,13 @@ void crearCuenta() {
             cout << "\n   Número de tarjeta (16 dígitos):     ";
             cin >> _num;
         }
-        Clientes[contador].getTarjeta().setNum(_num);
 
-        cout << "Código (CVV, tres dígitos):            ";
+        cout << "   Código (CVV, tres dígitos):         ";
         cin >> _cod;
-        Clientes[contador].getTarjeta().setCod(_cod);
 
-        cout << "Fecha de caducidad 'xx/xx':            ";
+        cout << "   Fecha de caducidad 'xx/xx':         ";
         cin >> _cad;
-        Clientes[contador].getTarjeta().setCad(_cad);
+        Clientes[contador].setTarjeta(_num, _cod, _cad);
 
         cout << "\nCuenta creada. Escriba algo para regresar al menú anterior." << endl;
         cin >> _cod;
@@ -248,7 +246,7 @@ void realizarPago(){
 }
 
 //estatus: - terminada
-void editarDatos(int queCliente) {
+void editarDatos() {
     clear();
     int quien;
     string seleccion, _usuario, _clave;
@@ -256,65 +254,72 @@ void editarDatos(int queCliente) {
     //Menú de la sección
     cout << "¿Qué desea hacer?" << endl;
     cout << "   1. Mostrar mis datos" << endl;
-    cout << "   2. Editar mis datos" << endl;
+    cout << "   2. Cambiar mis datos" << endl;
+    cout << "   3. Regresar al menú" << endl;
     cout << "Introduzca una opción: ";
     cin >> seleccion;
-    while (seleccion != "1" && seleccion != "2") {
+    while (seleccion != "1" && seleccion != "2" && seleccion != "3") {
         cout << "\nIntroduzca una opción válida: ";
         cin >> seleccion;
     }
-    //Pedir usuario
-    cout << "\nNombre de usuario:   ";
-    cin >> _usuario;
-    //validar usuario
-    while (buscador(_usuario) == 404) {
-        cout << "Este nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
-        cout << "Nombre de usuario:   ";
-        cin >> _usuario;
-        if (_usuario == "c") {
-            comprador();
-        }
-    }
-    cout << "Contraseña:          ";
-    cin >> _clave;
-    while (_clave != Clientes[buscador(_usuario)].getClave()) {
-        cout << "Contraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
-        cout << "Contraseña:          ";
-        cin >> _usuario;
-        if (_usuario == "c") {
-            comprador();
-        }
-    }
 
     int option = stoi(seleccion);
-    switch (option) {
-        case 1:
-            mostrarDatos();
-            break;
-        case 2:
-            cambiarDatos();
-            break;
-        default:
-            cout << "Error";
-            break;
+    if (option == 3) {
+        comprador();
+    }
+    else {
+        //Pedir usuario
+        cout << "\nNombre de usuario:   ";
+        cin >> _usuario;
+        //validar usuario
+        while (buscador(_usuario) == 404) {
+            cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
+            cout << "Nombre de usuario:   ";
+            cin >> _usuario;
+            if (_usuario == "c") {
+                comprador();
+            }
+        }
+        cout << "Contraseña:          ";
+        cin >> _clave;
+        while (_clave != Clientes[buscador(_usuario)].getClave() && _clave != "c") {
+            cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
+            cout << "Contraseña:          ";
+            cin >> _clave;
+            if (_clave == "c") {
+                comprador();
+            }
+        }
+
+        switch (option) {
+            case 1:
+                mostrarDatos(buscador(_usuario));
+                break;
+            case 2:
+                cambiarDatos(buscador(_usuario));
+                break;
+            default:
+                cout << "Error";
+                break;
+        }
     }
 }
 
-//estatus: - pendiente
+//estatus: - casi terminada (falta historial)
 void mostrarDatos(int queCliente) {
     clear();
     string wait;
-    label("Editar mis datos");
+    label("Mis datos");
     //mostrar los datos
     Clientes[queCliente].printDatos();
-    cout << "\nEscriba algo para regresar al menú principal" << endl;
+    cout << "\nEscriba algo para regresar al menú principal." << endl;
     cin >> wait;
     principal();
 }
 
 //estatus: - pendiente
-void cambiarDatos() {
-
+void cambiarDatos(int queCliente) {
+    cout << "proximamente" << endl;
 }
 
 //estatus: - pendiente

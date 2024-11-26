@@ -27,8 +27,10 @@ void Cliente::setClave(string vClave) {
 void Cliente::setCapital(double vCapital) {
     capital = vCapital;
 }
-void Cliente::setTarjeta(Tarjeta vTarjeta) {
-    tarjeta = vTarjeta;
+void Cliente::setTarjeta(string vNum, string vCod, string vCad) {
+    tarjeta.setNum(vNum);
+    tarjeta.setCod(vCod);
+    tarjeta.setCad(vCad);
 }
 //getters
 string Cliente::getUsuario() {

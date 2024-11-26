@@ -16,7 +16,7 @@ class Cliente {
         void setUsuario(string);
         void setClave(string);
         void setCapital(double);
-        void setTarjeta(Tarjeta);
+        void setTarjeta(string, string, string);
         //getters
         string getUsuario();
         string getClave();
