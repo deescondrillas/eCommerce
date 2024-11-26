@@ -273,7 +273,7 @@ void editarDatos() {
         cout << "\nNombre de usuario:   ";
         cin >> _usuario;
         //validar usuario
-        while (buscador(_usuario) == 404) {
+        while (buscador(_usuario) == 404 && _usuario != "c") {
             cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
             cout << "Nombre de usuario:   ";
             cin >> _usuario;
@@ -281,27 +281,29 @@ void editarDatos() {
                 comprador();
             }
         }
-        cout << "Contraseña:          ";
-        cin >> _clave;
-        while (_clave != Clientes[buscador(_usuario)].getClave() && _clave != "c") {
-            cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
+        if (_usuario != "c") {
             cout << "Contraseña:          ";
             cin >> _clave;
-            if (_clave == "c") {
-                comprador();
+            while (_clave != Clientes[buscador(_usuario)].getClave() && _clave != "c") {
+                cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
+                cout << "Contraseña:          ";
+                cin >> _clave;
+                if (_clave == "c") {
+                    comprador();
+                }
             }
-        }
 
-        switch (option) {
-            case 1:
-                mostrarDatos(buscador(_usuario));
-                break;
-            case 2:
-                cambiarDatos(buscador(_usuario));
-                break;
-            default:
-                cout << "Error";
-                break;
+            switch (option) {
+                case 1:
+                    mostrarDatos(buscador(_usuario));
+                    break;
+                case 2:
+                    cambiarDatos(buscador(_usuario));
+                    break;
+                default:
+                    cout << "Error";
+                    break;
+            }
         }
     }
 }
