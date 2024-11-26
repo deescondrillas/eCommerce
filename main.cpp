@@ -50,6 +50,7 @@ void realizarCobro();
 //de lo contrario un 404 not found
 int buscador(string);
 
+//estatus: - en proceso
 int main() {
     principal();
     return 0;
