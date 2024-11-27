@@ -37,6 +37,9 @@ void mostrarDatos(int);
 //cambiarDatos cambia los datos del usuario
 void cambiarDatos(int);
 
+//registrarDatos imprime el nombre de usuario de todos los registrados
+void registroUsuarios();
+
 //buscor recibe un nombre de usuario y busca el índice de un objeto en Clientes que coincida
 //de lo contrario un 404 not found
 int buscador(string);
@@ -86,11 +89,12 @@ void principal() {
     cout << "   1. Crear una cuenta" << endl;
     cout << "   2. Realizar un pago" << endl;
     cout << "   3. Mis datos" << endl;
-    cout << "   4. Salir del sistema" << endl;
+    cout << "   4. Registro de usuarios" << endl;
+    cout << "   5. Salir del sistema" << endl;
     cout << "Introduzca una opción: ";
     cin >> seleccion;
 
-    while (seleccion != "1" && seleccion != "2" && seleccion != "3" && seleccion != "4") {
+    while (seleccion != "1" && seleccion != "2" && seleccion != "3" && seleccion != "4" && seleccion != "5") {
         cout << "\nIntroduzca una opción válida: ";
         cin >> seleccion;
     }
@@ -107,6 +111,9 @@ void principal() {
             editarDatos();
             break;
         case 4:
+            registroUsuarios();
+            break;
+        case 5:
             break;
         default:
             cout << "Error";
@@ -122,7 +129,7 @@ void crearCuenta() {
     string _num, _cod, _mes, _anio, _cad;
     label("Crear una cuenta");
 
-    cout << "A continuación ingrese la información solicitada, o 'c' para cancelar." << endl;
+    cout << "A continuación ingrese la información solicitada, o 'c' para cancelar" << endl;
     cout << "   Nombre de usuario (sin espacios):   ";
     cin >> _usuario;
     if (_usuario == "c") {
@@ -200,7 +207,7 @@ void realizarPago() {
     cout << "\nNombre de usuario:   ";
     cin >> _usuario;
     while (buscador(_usuario) == 404 && _usuario != "c") {
-        cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
+        cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar" << endl;
         cout << "Nombre de usuario:   ";
         cin >> _usuario;
         if (_usuario == "c") {
@@ -211,26 +218,26 @@ void realizarPago() {
         cout << "Contraseña:          ";
         cin >> _clave;
         while (_clave != Clientes[buscador(_usuario)].getClave() && _clave != "c") {
-            cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
+            cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar" << endl;
             cout << "Contraseña:          ";
             cin >> _clave;
             if (_clave == "c") {
                 break;
             }
         }
-        //Crear Token
-        cout << "Cantidad a pagar:    ";
-        cin >> maximo;
-        while (maximo > Clientes[buscador(_usuario)].getCapital() || maximo < 0) {
-            cout << "El límite máximo no puede ser superior al saldo total ni negativo. Ingrese una cantidad válida." << endl;
-            cout << "Cantidad a pagar:    ";
-            cin >> maximo;
-        }
 
         //pago
         if (!Clientes[buscador(_usuario)].getTarjeta().getToken().getProceso()) {
+            //Crear Token
+            cout << "Cantidad a pagar:    ";
+            cin >> maximo;
+            while (maximo > Clientes[buscador(_usuario)].getCapital() || maximo < 0) {
+                cout << "El límite máximo no puede ser superior al saldo total ni negativo. Ingrese una cantidad válida" << endl;
+                cout << "Cantidad a pagar:    ";
+                cin >> maximo;
+            }//asignar valor y pagar
             Clientes[buscador(_usuario)].setLim(maximo);
-            cout << "\nSe creó un token seguro para que realice su pago." << endl;
+            cout << "\nSe creó un token seguro para realizar el pago" << endl;
             Clientes[buscador(_usuario)].getTarjeta().getToken().printToken();
             double cobro = Clientes[buscador(_usuario)].getCapital();
             Clientes[buscador(_usuario)].setCapital(cobro - maximo);
@@ -275,7 +282,7 @@ void editarDatos() {
         cin >> _usuario;
         //validar usuario
         while (buscador(_usuario) == 404 && _usuario != "c") {
-            cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
+            cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar" << endl;
             cout << "Nombre de usuario:   ";
             cin >> _usuario;
             if (_usuario == "c") {
@@ -286,7 +293,7 @@ void editarDatos() {
             cout << "Contraseña:          ";
             cin >> _clave;
             while (_clave != Clientes[buscador(_usuario)].getClave() && _clave != "c") {
-                cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
+                cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar" << endl;
                 cout << "Contraseña:          ";
                 cin >> _clave;
                 if (_clave == "c") {
@@ -316,7 +323,7 @@ void mostrarDatos(int queCliente) {
     label("Mis datos");
     //mostrar los datos
     Clientes[queCliente].printDatos();
-    cout << "\nEscriba algo para regresar al menú principal." << endl;
+    cout << "\nEscriba algo para regresar al menú principal" << endl;
     cin >> wait;
     principal();
 }
@@ -397,8 +404,26 @@ void cambiarDatos(int queCliente) {
             cout << "Error";
             break;
     }
-    cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
+    cout << "\nCambio realizado. Escriba algo para regresar al menú anterior" << endl;
     cin >> _cod;
+    principal();
+}
+
+void registroUsuarios() {
+    clear();
+    string wait;
+    label("Registro");
+    if (contador == 0) {
+        cout << "No hay usuarios registrados" << endl;
+    }
+    else {
+        cout << "Usuarios registrados:" << endl;
+        for (int i = 0; i < contador; i++) {
+            cout << "   • " << Clientes[i].getUsuario() << endl;
+        }
+    }
+    cout << "\nEscriba cualquier cosa para volver al menú principal" << endl;
+    cin >> wait;
     principal();
 }
 

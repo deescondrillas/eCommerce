@@ -45,5 +45,4 @@ Casos de prueba:
 
 
 //arreglar Token
-//destructor Token
-//Menú mostrar usuarios
+//reseteador Token
