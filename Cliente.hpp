@@ -24,7 +24,7 @@ class Cliente {
         Tarjeta getTarjeta();
         //methods
         void printDatos();
-        void updateHistorial();
+        void updateHistorial(int);
         void printHistorial();
 
     private:
