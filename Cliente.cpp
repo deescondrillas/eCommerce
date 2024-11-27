@@ -47,15 +47,17 @@ Tarjeta Cliente::getTarjeta() {
 }
 //methods
 void Cliente::updateHistorial(int vCompra) {
+    int i = 0;
     while (historial[i] != 0) {
         i++;
     }
     if (i == 0) {
-        i = //variable de hacer pago
+        i = vCompra;
     }
 }
 void Cliente::printHistorial() {
-    for (int i = 0; i < historial.size(); i++) {
+    int i = 0;
+    while (historial[i] != 0) {
         cout << "Monto de compra: " << historial[i] << endl;
     }
 }

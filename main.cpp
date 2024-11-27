@@ -322,7 +322,74 @@ void mostrarDatos(int queCliente) {
 
 //estatus: - pendiente
 void cambiarDatos(int queCliente) {
-    cout << "proximamente" << endl;
+    clear();
+    int cambiarCapital;
+    string seleccion, _num, _cod, _cad;
+    label("Cambiar datos");
+
+    cout << "¿Qué dato desea cambiar?" << endl;
+    cout << "   1. Usuario" << endl;
+    cout << "   2. Contraseña" << endl;
+    cout << "   3. Capital" << endl;
+    cout << "   4. Tarjeta" << endl;
+    cout << "Introduzca una opción: ";
+    cin >> seleccion;
+
+    while (seleccion != "1" && seleccion != "2" && seleccion != "3" && seleccion != "4") {
+        cout << "\nIntroduzca una opción válida: ";
+        cin >> seleccion;
+    }
+
+    int option = stoi(seleccion);
+    switch (option) {
+        case 1:
+            cout << "   Nuevo usuario: ";
+            cin >> seleccion;
+            Clientes[queCliente].setUsuario(seleccion);
+
+            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
+            cin >> _cod;
+            break;
+        case 2:
+            cout << "   Nueva contraseña: ";
+            cin >> seleccion;
+            Clientes[queCliente].setClave(seleccion);
+
+            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
+            cin >> _cod;
+            break;
+        case 3:
+            cout << "   Modificar capital: ";
+            cin >> cambiarCapital;
+            Clientes[queCliente].setCapital(cambiarCapital);
+
+            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
+            cin >> _cod;
+            break;
+        case 4:
+            cout << "\n   Nuevo número de tarjeta (16 dígitos):     ";
+            cin >> _num;
+            while (_num.length() != 16) {
+                cout << "\nTamaño incorrecto, intente de nuevo";
+                cout << "\n   Nuevo número de tarjeta (16 dígitos):     ";
+                cin >> _num;
+            }
+
+            cout << "   Nuevo código (CVV, tres dígitos):         ";
+            cin >> _cod;
+
+            cout << "   Nueva fecha de caducidad 'xx/xx':         ";
+            cin >> _cad;
+            Clientes[contador].setTarjeta(_num, _cod, _cad);
+
+            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
+            cin >> _cod;
+            break;
+        default:
+            cout << "Error";
+            break;
+    }
+    principal();
 }
 
 //estatus: - pendiente
