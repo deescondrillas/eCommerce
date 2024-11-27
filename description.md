@@ -42,3 +42,8 @@ Diagrama de clases:
 
 Casos de prueba:
 (Simulación en consola...)
+
+
+//arreglar Token
+//destructor Token
+//Menú mostrar usuarios

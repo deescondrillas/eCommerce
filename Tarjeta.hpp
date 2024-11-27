@@ -24,7 +24,6 @@ class Tarjeta {
         //methods
         void imprime();
         void setLim(double);
-        // void crearToken();
 
     private:
         string num;

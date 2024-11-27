@@ -11,17 +11,15 @@ class Token {
         //builders
         Token();
         ~Token();
-        //setters
-        void setLim(int);
         //getters
         string getNum();
         string getCod();
         string getCad();
         int getLim();
-        bool getPago();
+        bool getProceso();
         int getTimestamp();
         //methods
-        void pagar();
+        void pagar(double);
         string aTexto(int);
         int aleatorio(int);
         void printToken();
@@ -30,7 +28,7 @@ class Token {
         string randNum;
         string randCod;
         string cad;
-        int limiteMax;
-        bool pago;
+        double limiteMax;
+        bool proceso;
         int timestamp;
 };

@@ -8,25 +8,11 @@
 #include <ctime>
 
 //builders
-Token::Token(): limiteMax(0), pago(false) {
-    //obteniendo el año y el mes
-    time_t tiempo = time(nullptr);
-    tm *const t = localtime(&tiempo);
-    int anio = t->tm_year - 100;
-    int mes = t->tm_mon + 1;
-    //asignando una caducidad de un año
-    cad = aTexto(mes) + '/' + aTexto(anio + 1);
-    //generando una tarjeta aleatoria
-    randNum = aTexto(aleatorio(16));
-    randCod = aTexto(aleatorio(3));
-    timestamp = tiempo;
+Token::Token(): randNum("NULL"), randCod("NULL"), cad("NULL"), limiteMax(0), proceso(false), timestamp(0) {
+
 }
 Token::~Token() {
 
-}
-//setters
-void Token::setLim(int limite) {
-    limiteMax = limite;
 }
 //getters
 string Token::getNum() {
@@ -41,16 +27,34 @@ string Token::getCad() {
 int Token::getLim() {
     return limiteMax;
 }
-bool Token::getPago() {
-    return pago;
+bool Token::getProceso() {
+    return proceso;
 }
 int Token::getTimestamp() {
     return timestamp;
 }
 //methods
-void Token::pagar() {
-    pago = true;
-
+void Token::pagar(double cantidad) {
+    //obteniendo el año y el mes
+    time_t tiempo = time(nullptr);
+    tm *const t = localtime(&tiempo);
+    int anio = t->tm_year - 100;
+    int mes = t->tm_mon + 1;
+    //checar condición
+    if (proceso) {
+        cout << "\nYa hay un token activo. Espere " << 120 + timestamp - tiempo << " segundos más." << endl;
+    }
+    else {
+        //asignando una caducidad de un año
+        cad = aTexto(mes) + '/' + aTexto(anio + 1);
+        //generando una tarjeta aleatoria
+            //corregir num
+        randNum = aTexto(aleatorio(16));
+        randCod = aTexto(aleatorio(3));
+        timestamp = tiempo;
+        proceso = true;
+        limiteMax = cantidad;
+    }
 }
 int Token::aleatorio(int digitos) {
     time_t stamp = time(nullptr);
@@ -65,5 +69,5 @@ void Token::printToken() {
     cout << "\nNúmero de token:   " << randNum << endl;
     cout << "Clave temporal:    " << randCod << endl;
     cout << "Caducidad:         " << cad << endl;
-    cout << "Límite de cobro:   " << limiteMax << endl;
+    cout << "Cantidad pagada:   " << limiteMax << endl;
 }

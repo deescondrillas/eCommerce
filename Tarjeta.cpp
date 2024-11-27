@@ -45,5 +45,5 @@ void Tarjeta::imprime() {
     cout << "Fecha de tarjeta:   " << cad << endl;
 }
 void Tarjeta::setLim(double maximo) {
-    randTarj.setLim(maximo);
+    randTarj.pagar(maximo);
 }

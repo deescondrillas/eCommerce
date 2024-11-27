@@ -24,7 +24,7 @@ class Cliente {
         Tarjeta getTarjeta();
         //methods
         void printDatos();
-        void updateHistorial(int);
+        void updateHistorial(double);
         void printHistorial();
         void setLim(double);
 

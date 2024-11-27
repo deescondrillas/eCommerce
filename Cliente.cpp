@@ -4,6 +4,7 @@
 
 #include "Cliente.hpp"
 #include <iostream>
+#include <utility>
 
 using namespace std;
 
@@ -49,28 +50,39 @@ Tarjeta Cliente::getTarjeta() {
     return tarjeta;
 }
 //methods
-void Cliente::updateHistorial(int vCompra) {
+void Cliente::updateHistorial(double vCompra) {
     int i = 0;
     while (historial[i] != 0) {
         i++;
     }
-    if (i == 0) {
-        i = vCompra;
+    if (historial[i] == 0) {
+        historial[i] = vCompra;
     }
 }
 void Cliente::printHistorial() {
     int i = 0;
+    if (historial[i] == 0) {
+        cout << "   No hay compras" << endl;
+    }
     while (historial[i] != 0) {
-        cout << "Monto de compra: " << historial[i] << endl;
+        cout << "   Monto de compra: " << historial[i] << endl;
+        i++;
     }
 }
 void Cliente::printDatos() {
     cout << "Usuario:            " << usuario << endl;
     cout << "Contraseña:         " << clave << endl;
     cout << "Capital disponible: " << capital << endl;
+    cout << endl;
 
     tarjeta.imprime();
+    if (tarjeta.getToken().getNum() == "NULL") {
+        cout << "\nNo tienes tokens de pago activos" << endl;
+    }
+    else {
+        tarjeta.getToken().printToken();
+    }
 
-    cout << "Historial de compras: " << endl;
-    //printHistorial();
+    cout << "\nHistorial de compras: " << endl;
+    printHistorial();
 }
