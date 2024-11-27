@@ -49,6 +49,7 @@ int Token::getTimestamp() {
 //methods
 void Token::pagar() {
     pago = true;
+
 }
 int Token::aleatorio(int digitos) {
     time_t stamp = pow(time(nullptr),2);
