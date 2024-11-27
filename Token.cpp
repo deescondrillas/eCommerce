@@ -3,6 +3,7 @@
 //autores: Víctor Ayrton Urrutia & Franco De Escondrillas
 
 #include "Token.hpp"
+#include <iostream>
 #include <cmath>
 #include <ctime>
 
@@ -58,4 +59,10 @@ int Token::aleatorio(int digitos) {
 }
 string Token::aTexto(int numero) {
     return to_string(numero);
+}
+void Token::printToken() {
+    cout << "\nNúmero de token:   " << randNum << endl;
+    cout << "Clave temporal:    " << randCod << endl;
+    cout << "Caducidad:         " << cad << endl;
+    cout << "Límite de cobro:   " << limiteMax << endl;
 }

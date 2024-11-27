@@ -24,6 +24,7 @@ class Token {
         void pagar();
         string aTexto(int);
         int aleatorio(int);
+        void printToken();
 
     private:
         string randNum;
