@@ -195,7 +195,7 @@ void crearCuenta() {
     clear();
     string _usuario, _clave;
     double _capital;
-    string _num, _cod, _cad;
+    string _num, _cod, _mes, _anio, _cad;
     label("Crear una cuenta");
 
     cout << "A continuación ingrese la información solicitada, o 'c' para cancelar." << endl;
@@ -211,6 +211,12 @@ void crearCuenta() {
 
         cout << "   Dinero disponible (numérico):       ";
         cin >> _capital;
+        while (_capital < 0) {
+            cout << "No puede introducir cantidades negativas.";
+            cout << "\n   Dinero disponible (numérico):       ";
+            cin >> _capital;
+        }
+
         Clientes[contador].setUsuario(_usuario);
         Clientes[contador].setClave(_clave);
         Clientes[contador].setCapital(_capital);
@@ -218,16 +224,36 @@ void crearCuenta() {
         cout << "\n   Número de tarjeta (16 dígitos):     ";
         cin >> _num;
         while (_num.length() != 16) {
-            cout << "\nTamaño incorrecto, intente de nuevo";
+            cout << "Tamaño incorrecto, intente de nuevo";
             cout << "\n   Número de tarjeta (16 dígitos):     ";
             cin >> _num;
         }
 
         cout << "   Código (CVV, tres dígitos):         ";
         cin >> _cod;
+        while (_cod.length() != 3 || stoi(_cod) < 100) {
+            cout << "Código incorrecto, intente de nuevo";
+            cout << "\n   Código (CVV, tres dígitos):         ";
+            cin >> _cod;
+        }
 
-        cout << "   Fecha de caducidad 'xx/xx':         ";
-        cin >> _cad;
+        cout << "   Fecha de caducidad (mes):           ";
+        cin >> _mes;
+        while (_mes.length() != 2 || stoi(_mes) < 1 || stoi(_mes) > 12) {
+            cout << "Mes no válido, intente de nuevo." << endl;
+            cout << "   Fecha de caducidad (mes):           ";
+            cin >> _mes;
+        }
+
+        cout << "   Fecha de caducidad (año):           ";
+        cin >> _anio;
+        while (_anio.length() != 2 || stoi(_anio) < 25) {
+            cout << "Año no válido, intente de nuevo." << endl;
+            cout << "   Fecha de caducidad (año):           ";
+            cin >> _anio;
+        }
+
+        _cad = _mes + "/" + _anio;
         Clientes[contador].setTarjeta(_num, _cod, _cad);
 
         cout << "\nCuenta creada. Escriba algo para regresar al menú anterior." << endl;
@@ -238,13 +264,17 @@ void crearCuenta() {
 }
 
 //estatus: - pendiente
-void realizarPago(){
+void realizarPago() {
     clear();
-    int maximo;
-    int pago;
+    double maximo;
     int decision;
+    string _usuario, _clave;
+
     label("Realizar un pago");
+
     //cliente[]
+    cout << "\nNombre de usuario:   ";
+    cin >> _usuario;
     while (buscador(_usuario) == 404 && _usuario != "c") {
         cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
         cout << "Nombre de usuario:   ";
@@ -264,33 +294,20 @@ void realizarPago(){
                 break;
             }
         }
-
-        cout << "Ingrese la cantidad a pagar: " << endl;
-        cin >> pago;
-
-        if (pago > Clientes[bbuscador(_usuario)].getCapital()) {
-            cout << "La cantidad ingresada es mayor al monto máximo disponible." << endl;
-            cout << "Escriba '1' para actualizar su monto máximo. Escriba '2' para ajustar su monto de pago."
-            cin >> decision;
-            if (decision == 1) {
-                cout << "Ingrese el nuevo monto máximo que se puede pagar: " << endl;
-                cin >> _maximo;
-            }
-            if (decision == 2) {
-                cout << "Ingrese la nueva cantidad a pagar: " << endl;
-            }
-        }else {
-            if (pago < 0) {
-                cout << "Error. El monto es negativo, intentelo de nuevo: " << endl;
-                cin >> pago;
-            }
-            else {
-                cout << "Se creo un token seguro para que realice su pago." << endl;
-
-            }
+        cout << "Cantidad a pagar:    ";
+        cin >> maximo;
+        while (maximo > Clientes[buscador(_usuario)].getCapital() || maximo < 0) {
+            cout << "El límite máximo no puede ser superior al saldo total ni negativo. Ingrese una cantidad válida." << endl;
+            cout << "Cantidad a pagar:    ";
+            cin >> maximo;
         }
+        Clientes[buscador(_usuario)].setLim(maximo);
+        cout << "Se creo un token seguro para que realice su pago." << endl;
+        Clientes[buscador(_usuario)].getTarjeta().getToken().printToken();
+        cout << "\nEscriba algo para regresar al menú" << endl;
+        cin >> _usuario;
     }
-    cout << "Próximamente" << endl;
+    principal();
 }
 
 //estatus: - terminada
@@ -367,11 +384,11 @@ void mostrarDatos(int queCliente) {
     principal();
 }
 
-//estatus: - pendiente
+//estatus: - terminada
 void cambiarDatos(int queCliente) {
     clear();
     int cambiarCapital;
-    string seleccion, _num, _cod, _cad;
+    string seleccion, _num, _cod, _mes, _anio, _cad;
     label("Cambiar datos");
 
     cout << "¿Qué dato desea cambiar?" << endl;
@@ -393,25 +410,16 @@ void cambiarDatos(int queCliente) {
             cout << "   Nuevo usuario: ";
             cin >> seleccion;
             Clientes[queCliente].setUsuario(seleccion);
-
-            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
-            cin >> _cod;
             break;
         case 2:
             cout << "   Nueva contraseña: ";
             cin >> seleccion;
             Clientes[queCliente].setClave(seleccion);
-
-            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
-            cin >> _cod;
             break;
         case 3:
             cout << "   Modificar capital: ";
             cin >> cambiarCapital;
             Clientes[queCliente].setCapital(cambiarCapital);
-
-            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
-            cin >> _cod;
             break;
         case 4:
             cout << "\n   Nuevo número de tarjeta (16 dígitos):     ";
@@ -424,18 +432,36 @@ void cambiarDatos(int queCliente) {
 
             cout << "   Nuevo código (CVV, tres dígitos):         ";
             cin >> _cod;
+            while (_cod.length() != 3 || stoi(_cod) < 100) {
+                cout << "Código incorrecto, intente de nuevo";
+                cout << "\n   Código (CVV, tres dígitos):         ";
+                cin >> _cod;
+            }
 
-            cout << "   Nueva fecha de caducidad 'xx/xx':         ";
-            cin >> _cad;
+            cin >> _mes;
+            while (_mes.length() != 2 || stoi(_mes) < 1 || stoi(_mes) > 12) {
+                cout << "Mes no válido, intente de nuevo." << endl;
+                cout << "   Fecha de caducidad (mes):           ";
+                cin >> _mes;
+            }
+
+            cout << "   Fecha de caducidad (año):           ";
+            cin >> _anio;
+            while (_anio.length() != 2 || stoi(_anio) < 25) {
+                cout << "Año no válido, intente de nuevo." << endl;
+                cout << "   Fecha de caducidad (año):           ";
+                cin >> _anio;
+            }
+
+            _cad = _mes + "/" + _anio;
             Clientes[contador].setTarjeta(_num, _cod, _cad);
-
-            cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
-            cin >> _cod;
             break;
         default:
             cout << "Error";
             break;
     }
+    cout << "\nCambio realizado. Escriba algo para regresar al menú anterior." << endl;
+    cin >> _cod;
     principal();
 }
 

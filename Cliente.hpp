@@ -26,6 +26,7 @@ class Cliente {
         void printDatos();
         void updateHistorial(int);
         void printHistorial();
+        void setLim(double);
 
     private:
         string usuario;

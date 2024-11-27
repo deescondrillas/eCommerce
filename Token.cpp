@@ -53,9 +53,10 @@ void Token::pagar() {
 
 }
 int Token::aleatorio(int digitos) {
-    time_t stamp = pow(time(nullptr),2);
-    int potencia = pow(10, digitos);
-    return stamp % potencia;
+    time_t stamp = time(nullptr);
+    long long int randomNum = pow(stamp, 2);
+    long long int potencia = pow(10, digitos);
+    return randomNum % potencia;
 }
 string Token::aTexto(int numero) {
     return to_string(numero);

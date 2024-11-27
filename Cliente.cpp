@@ -32,6 +32,9 @@ void Cliente::setTarjeta(string vNum, string vCod, string vCad) {
     tarjeta.setCod(vCod);
     tarjeta.setCad(vCad);
 }
+void Cliente::setLim(double maximo){
+    tarjeta.setLim(maximo);
+}
 //getters
 string Cliente::getUsuario() {
     return usuario;

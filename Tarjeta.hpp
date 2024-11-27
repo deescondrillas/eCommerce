@@ -20,8 +20,10 @@ class Tarjeta {
         string getNum();
         string getCod();
         string getCad();
+        Token getToken();
         //methods
         void imprime();
+        void setLim(double);
         // void crearToken();
 
     private:

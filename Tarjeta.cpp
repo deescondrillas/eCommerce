@@ -35,9 +35,15 @@ string Tarjeta::getCod() {
 string Tarjeta::getCad() {
     return cad;
 }
+Token Tarjeta::getToken() {
+    return randTarj;
+}
 //methods
 void Tarjeta::imprime() {
     cout << "Número de tarjeta:  " << num << endl;
     cout << "Código de tarjeta:  " << cod << endl;
     cout << "Fecha de tarjeta:   " << cad << endl;
+}
+void Tarjeta::setLim(double maximo) {
+    randTarj.setLim(maximo);
 }
