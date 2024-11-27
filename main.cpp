@@ -241,8 +241,55 @@ void crearCuenta() {
 void realizarPago(){
     clear();
     int maximo;
+    int pago;
+    int decision;
     label("Realizar un pago");
+    //cliente[]
+    while (buscador(_usuario) == 404 && _usuario != "c") {
+        cout << "\nEste nombre de usuario no está registrado. Escriba una opción válida o 'c' para cancelar." << endl;
+        cout << "Nombre de usuario:   ";
+        cin >> _usuario;
+        if (_usuario == "c") {
+            comprador();
+        }
+    }
+    if (_usuario != "c") {
+        cout << "Contraseña:          ";
+        cin >> _clave;
+        while (_clave != Clientes[buscador(_usuario)].getClave() && _clave != "c") {
+            cout << "\nContraseña incorrecta. intente de nuevo o escriba 'c' para cancelar." << endl;
+            cout << "Contraseña:          ";
+            cin >> _clave;
+            if (_clave == "c") {
+                break;
+            }
+        }
 
+        cout << "Ingrese la cantidad a pagar: " << endl;
+        cin >> pago;
+
+        if (pago > Clientes[bbuscador(_usuario)].getCapital()) {
+            cout << "La cantidad ingresada es mayor al monto máximo disponible." << endl;
+            cout << "Escriba '1' para actualizar su monto máximo. Escriba '2' para ajustar su monto de pago."
+            cin >> decision;
+            if (decision == 1) {
+                cout << "Ingrese el nuevo monto máximo que se puede pagar: " << endl;
+                cin >> _maximo;
+            }
+            if (decision == 2) {
+                cout << "Ingrese la nueva cantidad a pagar: " << endl;
+            }
+        }else {
+            if (pago < 0) {
+                cout << "Error. El monto es negativo, intentelo de nuevo: " << endl;
+                cin >> pago;
+            }
+            else {
+                cout << "Se creo un token seguro para que realice su pago." << endl;
+
+            }
+        }
+    }
     cout << "Próximamente" << endl;
 }
 
