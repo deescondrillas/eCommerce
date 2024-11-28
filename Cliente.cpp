@@ -33,9 +33,6 @@ void Cliente::setTarjeta(string vNum, string vCod, string vCad) {
     tarjeta.setCod(vCod);
     tarjeta.setCad(vCad);
 }
-void Cliente::setLim(double maximo){
-    tarjeta.setLim(maximo);
-}
 //getters
 string Cliente::getUsuario() {
     return usuario;
@@ -70,19 +67,24 @@ void Cliente::printHistorial() {
     }
 }
 void Cliente::printDatos() {
+    time_t tiempo = time(nullptr);
     cout << "Usuario:            " << usuario << endl;
     cout << "Contraseña:         " << clave << endl;
-    cout << "Capital disponible: " << capital << endl;
+    cout << "Saldo:              " << capital << endl;
     cout << endl;
 
     tarjeta.imprime();
-    if (tarjeta.getToken().getNum() == "NULL") {
+    if (60 - tiempo + tarjeta.getToken().getTimestamp() < 0) {
         cout << "\nNo tienes tokens de pago activos" << endl;
     }
     else {
         tarjeta.getToken().printToken();
+        cout << "\nActivo por " << 60 - tiempo + tarjeta.getToken().getTimestamp() << " segundos más" << endl;
     }
 
     cout << "\nHistorial de compras: " << endl;
     printHistorial();
+}
+void Cliente::pagar(double maximo){
+    tarjeta.pagar(maximo);
 }

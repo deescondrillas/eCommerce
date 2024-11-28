@@ -23,7 +23,7 @@ class Tarjeta {
         Token getToken();
         //methods
         void imprime();
-        void setLim(double);
+        void pagar(double);
 
     private:
         string num;

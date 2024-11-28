@@ -26,12 +26,12 @@ class Cliente {
         void printDatos();
         void updateHistorial(double);
         void printHistorial();
-        void setLim(double);
+        void pagar(double);
 
     private:
         string usuario;
         string clave;
         double capital;
-        double historial[10];
+        double historial[20];
         Tarjeta tarjeta;
 };

@@ -15,20 +15,18 @@ class Token {
         string getNum();
         string getCod();
         string getCad();
-        int getLim();
-        bool getProceso();
+        int getMonto();
         int getTimestamp();
         //methods
         void pagar(double);
-        string aTexto(int);
-        int aleatorio(int);
+        string aTexto(long long int);
+        long long int aleatorio(int);
         void printToken();
 
     private:
         string randNum;
         string randCod;
         string cad;
-        double limiteMax;
-        bool proceso;
+        double monto;
         int timestamp;
 };

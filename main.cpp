@@ -44,13 +44,13 @@ void registroUsuarios();
 //de lo contrario un 404 not found
 int buscador(string);
 
-//estatus: - en proceso
+//estatus: terminada
 int main() {
     principal();
     return 0;
 }
 
-//estatus: - terminada
+//estatus: terminada
 void clear() {
     #ifdef _WIN32
         system("clc");
@@ -66,7 +66,7 @@ void clear() {
     #endif
 }
 
-//estatus: - terminada
+//estatus: terminada
 void label(string title) {
     int len = title.length();
     string bar = " --";
@@ -79,7 +79,7 @@ void label(string title) {
     cout << bar << '\n' << endl;
 }
 
-//estatus: - terminada
+//estatus: terminada
 void principal() {
     clear();
     string seleccion;
@@ -121,10 +121,10 @@ void principal() {
     }
 }
 
-//estatus: - terminado
+//estatus: terminada
 void crearCuenta() {
     clear();
-    string _usuario, _clave;
+    string _usuario, _clave, convert;
     double _capital;
     string _num, _cod, _mes, _anio, _cad;
     label("Crear una cuenta");
@@ -140,12 +140,14 @@ void crearCuenta() {
         cout << "   Contraseña:                         ";
         cin >> _clave;
 
-        cout << "   Dinero disponible (numérico):       ";
-        cin >> _capital;
+        cout << "   Saldo (numérico):                   ";
+        cin >> convert;
+        _capital = stoi(convert);
         while (_capital < 0) {
             cout << "No puede introducir cantidades negativas.";
             cout << "\n   Dinero disponible (numérico):       ";
-            cin >> _capital;
+            cin >> convert;
+            _capital = stoi(convert);
         }
 
         Clientes[contador].setUsuario(_usuario);
@@ -194,16 +196,17 @@ void crearCuenta() {
     }
 }
 
-//estatus: - pendiente
+//estatus: terminada
 void realizarPago() {
     clear();
-    double maximo;
+    double _monto;
     int decision;
-    string _usuario, _clave;
+    string _usuario, _clave, convert;
+    time_t tiempo = time(nullptr);
 
     label("Realizar un pago");
 
-    //cliente[]
+    //cliente
     cout << "\nNombre de usuario:   ";
     cin >> _usuario;
     while (buscador(_usuario) == 404 && _usuario != "c") {
@@ -227,25 +230,29 @@ void realizarPago() {
         }
 
         //pago
-        if (!Clientes[buscador(_usuario)].getTarjeta().getToken().getProceso()) {
+        if (60 - tiempo + Clientes[buscador(_usuario)].getTarjeta().getToken().getTimestamp() < 0) {
             //Crear Token
             cout << "Cantidad a pagar:    ";
-            cin >> maximo;
-            while (maximo > Clientes[buscador(_usuario)].getCapital() || maximo < 0) {
+            cin >> convert;
+            _monto = stoi(convert);
+            //revisar que el monto sea válido
+            while (_monto > Clientes[buscador(_usuario)].getCapital() || _monto < 0) {
                 cout << "El límite máximo no puede ser superior al saldo total ni negativo. Ingrese una cantidad válida" << endl;
                 cout << "Cantidad a pagar:    ";
-                cin >> maximo;
-            }//asignar valor y pagar
-            Clientes[buscador(_usuario)].setLim(maximo);
-            cout << "\nSe creó un token seguro para realizar el pago" << endl;
+                cin >> convert;
+                _monto = stoi(convert);
+            }
+            //asignar valor y pagar
+            Clientes[buscador(_usuario)].pagar(_monto);
+            cout << "\nSe creó un token temporal de 60 segundos para realizar el pago" << endl;
             Clientes[buscador(_usuario)].getTarjeta().getToken().printToken();
             double cobro = Clientes[buscador(_usuario)].getCapital();
-            Clientes[buscador(_usuario)].setCapital(cobro - maximo);
-            Clientes[buscador(_usuario)].updateHistorial(maximo);
+            Clientes[buscador(_usuario)].setCapital(cobro - _monto);
+            Clientes[buscador(_usuario)].updateHistorial(_monto);
         }
         else {
             //Imprimir ya hay
-            Clientes[buscador(_usuario)].setLim(maximo);
+            cout << "\nYa hay un token activo. Espere " << 60 - tiempo + Clientes[buscador(_usuario)].getTarjeta().getToken().getTimestamp() << " segundos más" << endl;
         }
 
         cout << "\nEscriba algo para regresar al menú" << endl;
@@ -254,7 +261,7 @@ void realizarPago() {
     principal();
 }
 
-//estatus: - terminada
+//estatus: terminada
 void editarDatos() {
     clear();
     int quien;
@@ -316,7 +323,7 @@ void editarDatos() {
     }
 }
 
-//estatus: - casi terminada (falta historial)
+//estatus: terminada
 void mostrarDatos(int queCliente) {
     clear();
     string wait;
@@ -328,11 +335,11 @@ void mostrarDatos(int queCliente) {
     principal();
 }
 
-//estatus: - terminada
+//estatus: terminada
 void cambiarDatos(int queCliente) {
     clear();
-    int cambiarCapital;
-    string seleccion, _num, _cod, _mes, _anio, _cad;
+    double _capital;
+    string seleccion, _num, _cod, _mes, _anio, _cad, convert;
     label("Cambiar datos");
 
     cout << "¿Qué dato desea cambiar?" << endl;
@@ -350,21 +357,31 @@ void cambiarDatos(int queCliente) {
 
     int option = stoi(seleccion);
     switch (option) {
+    //cambiar usuario
         case 1:
             cout << "   Nuevo usuario: ";
             cin >> seleccion;
             Clientes[queCliente].setUsuario(seleccion);
             break;
+    //cambiar contraseña
         case 2:
             cout << "   Nueva contraseña: ";
             cin >> seleccion;
             Clientes[queCliente].setClave(seleccion);
             break;
+    //cambiar saldo
         case 3:
-            cout << "   Modificar capital: ";
-            cin >> cambiarCapital;
-            Clientes[queCliente].setCapital(cambiarCapital);
+            cout << "   Modificar saldo: ";
+            cin >> convert;
+            _capital = stoi(convert);
+            while (_capital < 0) {
+                cout << "No puede introducir cantidades negativas.";
+                cout << "\n   Dinero disponible (numérico):       ";
+                cin >> convert;
+                _capital = stoi(convert);
+            }
             break;
+        //cambiar tarjeta
         case 4:
             cout << "\n   Nuevo número de tarjeta (16 dígitos):     ";
             cin >> _num;
@@ -400,6 +417,7 @@ void cambiarDatos(int queCliente) {
             _cad = _mes + "/" + _anio;
             Clientes[contador].setTarjeta(_num, _cod, _cad);
             break;
+        //visualizar errores
         default:
             cout << "Error";
             break;
@@ -409,6 +427,7 @@ void cambiarDatos(int queCliente) {
     principal();
 }
 
+//estatus: terminada
 void registroUsuarios() {
     clear();
     string wait;
@@ -427,7 +446,7 @@ void registroUsuarios() {
     principal();
 }
 
-//estatus: - terminada
+//estatus: terminada
 int buscador(string _nombre) {
     for (int i = 0; i < 16; i++) {
         if (_nombre == Clientes[i].getUsuario()) {
