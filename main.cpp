@@ -30,7 +30,7 @@ void crearCuenta();
 void realizarPago();
 
 //editarDatos permite que el usuario cambie o muestre sus datos
-void editarDatos();
+void misDatos();
 
 //mostrarDatos muestra todos los datos del usuario
 void mostrarDatos(int);
@@ -109,7 +109,7 @@ void principal() {
             realizarPago();
             break;
         case 3:
-            editarDatos();
+            misDatos();
             break;
         case 4:
             registroUsuarios();
@@ -263,7 +263,7 @@ void realizarPago() {
 }
 
 //estatus: terminada
-void editarDatos() {
+void misDatos() {
     clear();
     int quien;
     string seleccion, _usuario, _clave;
