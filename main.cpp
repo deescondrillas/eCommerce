@@ -171,7 +171,7 @@ void crearCuenta() {
             cin >> _cod;
         }
 
-        cout << "   Fecha de caducidad (mes):           ";
+        cout << "   Fecha de caducidad (mes mm):        ";
         cin >> _mes;
         while (_mes.length() != 2 || stoi(_mes) < 1 || stoi(_mes) > 12) {
             cout << "Mes no válido, intente de nuevo." << endl;
@@ -179,7 +179,7 @@ void crearCuenta() {
             cin >> _mes;
         }
 
-        cout << "   Fecha de caducidad (año):           ";
+        cout << "   Fecha de caducidad (año yy):        ";
         cin >> _anio;
         while (_anio.length() != 2 || stoi(_anio) < 25) {
             cout << "Año no válido, intente de nuevo." << endl;
@@ -400,6 +400,7 @@ void cambiarDatos(int queCliente) {
                 cin >> _cod;
             }
 
+            cout << "   Fecha de caducidad (mes mm):        ";
             cin >> _mes;
             while (_mes.length() != 2 || stoi(_mes) < 1 || stoi(_mes) > 12) {
                 cout << "Mes no válido, intente de nuevo." << endl;
@@ -407,7 +408,7 @@ void cambiarDatos(int queCliente) {
                 cin >> _mes;
             }
 
-            cout << "   Fecha de caducidad (año):           ";
+            cout << "   Fecha de caducidad (año yy):        ";
             cin >> _anio;
             while (_anio.length() != 2 || stoi(_anio) < 25) {
                 cout << "Año no válido, intente de nuevo." << endl;
