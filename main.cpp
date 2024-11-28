@@ -45,6 +45,9 @@ void registroUsuarios();
 //de lo contrario un 404 not found
 int buscador(string);
 
+//revisa si todos los caracteres de un string son números, regresando verdadero o falso
+bool esNumero(string);
+
 //estatus: terminada
 int main() {
     principal();
@@ -157,16 +160,16 @@ void crearCuenta() {
 
         cout << "\n   Número de tarjeta (16 dígitos):     ";
         cin >> _num;
-        while (_num.length() != 16 || !isdigit(_num.length())) {
-            cout << "El número de tarjeta incluye caracteres no admitidos (letras o caracteres especiales) o no es del tamaño requerido (16), intente de nuevo";
+        while (_num.length() != 16 || !esNumero(_num)) {
+            cout << "\nTamaño incorrecto o inclusión de caracteres no admitidos, intente de nuevo";
             cout << "\n   Número de tarjeta (16 dígitos):     ";
             cin >> _num;
         }
 
         cout << "   Código (CVV, tres dígitos):         ";
         cin >> _cod;
-        while (_cod.length() != 3 || !isdigit(_cod.length())) {
-            cout << "Código incorrecto, intente de nuevo";
+        while (_cod.length() != 3 || !esNumero(_cod)) {
+            cout << "Código no válido, intente de nuevo";
             cout << "\n   Código (CVV, tres dígitos):         ";
             cin >> _cod;
         }
@@ -386,7 +389,7 @@ void cambiarDatos(int queCliente) {
         case 4:
             cout << "\n   Nuevo número de tarjeta (16 dígitos):     ";
             cin >> _num;
-            while (_num.length() != 16 || !isdigit(_num.length())) {
+            while (_num.length() != 16 || !esNumero(_num)) {
                 cout << "\nTamaño incorrecto o inclusión de caracteres no admitidos, intente de nuevo";
                 cout << "\n   Nuevo número de tarjeta (16 dígitos):     ";
                 cin >> _num;
@@ -394,7 +397,7 @@ void cambiarDatos(int queCliente) {
 
             cout << "   Nuevo código (CVV, tres dígitos):         ";
             cin >> _cod;
-            while (_cod.length() != 3 || !isdigit(_cod.length())) {
+            while (_cod.length() != 3 || !esNumero(_cod)) {
                 cout << "Código incorrecto o inclusión de caracteres no admitidos, intente de nuevo";
                 cout << "\n   Código (CVV, tres dígitos):         ";
                 cin >> _cod;
@@ -456,4 +459,15 @@ int buscador(string _nombre) {
         }
     }
     return 404;
+}
+
+//estatus: terminada
+bool esNumero(string _cadena) {
+    bool condicion = true;
+    for (int i = 0; i < _cadena.length(); i++) {
+        if (!isdigit(_cadena[i])) {
+            condicion = false;
+        }
+    }
+    return condicion;
 }

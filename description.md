@@ -42,7 +42,3 @@ Diagrama de clases:
 
 Casos de prueba:
 (Simulación en consola...)
-
-
-//arreglar Token
-//reseteador Token
