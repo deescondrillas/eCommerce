@@ -11,6 +11,7 @@
 //Variables globales
 Cliente Clientes[16];
 int contador = 0;
+
 //Definición de funciones
 
 //clear limpia la terminal
