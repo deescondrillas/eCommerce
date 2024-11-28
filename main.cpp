@@ -237,7 +237,7 @@ void realizarPago() {
             cin >> convert;
             _monto = stoi(convert);
             //revisar que el monto sea válido
-            while (_monto > Clientes[buscador(_usuario)].getCapital() || _monto < 0) {
+            while (_monto > Clientes[buscador(_usuario)].getCapital() || _monto <= 0) {
                 cout << "El límite máximo no puede ser superior al saldo total ni negativo. Ingrese una cantidad válida" << endl;
                 cout << "Cantidad a pagar:    ";
                 cin >> convert;
