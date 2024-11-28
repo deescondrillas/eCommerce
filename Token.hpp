@@ -15,7 +15,7 @@ class Token {
         string getNum();
         string getCod();
         string getCad();
-        int getMonto();
+        double getMonto();
         int getTimestamp();
         //methods
         void pagar(double);
