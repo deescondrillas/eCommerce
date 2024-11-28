@@ -193,7 +193,7 @@ void crearCuenta() {
         _cad = _mes + "/" + _anio;
         Clientes[contador].setTarjeta(_num, _cod, _cad);
 
-        cout << "\nCuenta creada. Escriba algo para regresar al menú anterior." << endl;
+        cout << "\nCuenta creada. Escriba algo para regresar al menú principal" << endl;
         cin >> _cod;
         contador++;
         principal();
@@ -349,7 +349,7 @@ void cambiarDatos(int queCliente) {
     cout << "¿Qué dato desea cambiar?" << endl;
     cout << "   1. Usuario" << endl;
     cout << "   2. Contraseña" << endl;
-    cout << "   3. Capital" << endl;
+    cout << "   3. Saldo" << endl;
     cout << "   4. Tarjeta" << endl;
     cout << "Introduzca una opción: ";
     cin >> seleccion;
