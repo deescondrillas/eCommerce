@@ -24,7 +24,7 @@ string Token::getCod() {
 string Token::getCad() {
     return cad;
 }
-int Token::getMonto() {
+double Token::getMonto() {
     return monto;
 }
 int Token::getTimestamp() {
