@@ -143,12 +143,12 @@ void crearCuenta() {
 
         cout << "   Saldo (numérico):                   ";
         cin >> convert;
-        _capital = stoi(convert);
+        _capital = stod(convert);
         while (_capital < 0) {
             cout << "No puede introducir cantidades negativas.";
             cout << "\n   Dinero disponible (numérico):       ";
             cin >> convert;
-            _capital = stoi(convert);
+            _capital = stod(convert);
         }
 
         Clientes[contador].setUsuario(_usuario);
@@ -235,13 +235,13 @@ void realizarPago() {
             //Crear Token
             cout << "Cantidad a pagar:    ";
             cin >> convert;
-            _monto = stoi(convert);
+            _monto = stod(convert);
             //revisar que el monto sea válido
             while (_monto > Clientes[buscador(_usuario)].getCapital() || _monto <= 0) {
                 cout << "El límite máximo no puede ser superior al saldo total ni negativo. Ingrese una cantidad válida" << endl;
                 cout << "Cantidad a pagar:    ";
                 cin >> convert;
-                _monto = stoi(convert);
+                _monto = stod(convert);
             }
             //asignar valor y pagar
             Clientes[buscador(_usuario)].pagar(_monto);
@@ -374,12 +374,12 @@ void cambiarDatos(int queCliente) {
         case 3:
             cout << "   Modificar saldo: ";
             cin >> convert;
-            _capital = stoi(convert);
+            _capital = stod(convert);
             while (_capital < 0) {
                 cout << "No puede introducir cantidades negativas.";
                 cout << "\n   Dinero disponible (numérico):       ";
                 cin >> convert;
-                _capital = stoi(convert);
+                _capital = stod(convert);
             }
             break;
         //cambiar tarjeta
